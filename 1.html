@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$TANTRUM - When Markets Make You Mad</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 25%, #ff8e53 50%, #ff6b9d 75%, #a8e6cf 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+            min-height: 100vh;
+            color: #2c3e50;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        /* Floating emojis */
+        .floating-emoji {
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            font-size: 2rem;
+            animation: float 20s infinite linear;
+            opacity: 0.7;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(100vh) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(360deg); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+        
+        /* Header */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 3px solid #ff6b6b;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(255, 107, 107, 0.2);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px #ff8e53;
+            letter-spacing: 2px;
+            transform: rotate(-2deg);
+            transition: all 0.3s ease;
+        }
+        
+        .logo:hover {
+            transform: rotate(2deg) scale(1.1);
+            text-shadow: 3px 3px 0px #fff, 6px 6px 0px #ff8e53;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: #2c3e50;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53);
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+        
+        .nav-links a:hover::before {
+            left: 0;
+        }
+        
+        .nav-links a:hover {
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .gif-container {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 50px;
+        }
+        
+        .tantrum-gif {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            border: 8px solid #fff;
+            box-shadow: 
+                0 0 0 4px #ff6b6b,
+                0 20px 40px rgba(255, 107, 107, 0.3);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .tantrum-gif:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 
+                0 0 0 4px #ff8e53,
+                0 30px 60px rgba(255, 142, 83, 0.4);
+        }
+        
+        .gif-speech-bubble {
+            position: absolute;
+            top: -60px;
+            right: -80px;
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 20px;
+            border: 3px solid #ff6b6b;
+            font-weight: 600;
+            color: #2c3e50;
+            animation: bounce 2s infinite;
+            transform: rotate(10deg);
+        }
+        
+        .gif-speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 30px;
+            width: 0;
+            height: 0;
+            border: 10px solid transparent;
+            border-top-color: #ff6b6b;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: rotate(10deg) translateY(0px); }
+            50% { transform: rotate(10deg) translateY(-10px); }
+        }
+        
+        .hero-text {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 900;
+            color: #fff;
+            text-shadow: 
+                3px 3px 0px #ff6b6b,
+                6px 6px 0px #ff8e53,
+                0 0 30px rgba(255, 255, 255, 0.5);
+            margin-bottom: 20px;
+            transform: rotate(-1deg);
+            animation: wiggle 3s ease-in-out infinite;
+        }
+        
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-1deg); }
+            25% { transform: rotate(1deg); }
+            75% { transform: rotate(-0.5deg); }
+        }
+        
+        .hero-subtitle {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            background: #fff;
+            display: inline-block;
+            padding: 10px 30px;
+            border-radius: 50px;
+            border: 4px solid #ff6b6b;
+            transform: rotate(1deg);
+        }
+        
+        .hero-tagline {
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 15px;
+            font-style: italic;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero-description {
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+        
+        .mood-meter {
+            margin: 40px auto;
+            width: 400px;
+            height: 40px;
+            background: #fff;
+            border-radius: 25px;
+            border: 4px solid #ff6b6b;
+            overflow: hidden;
+            position: relative;
+            box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mood-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b, #ff8e53, #a8e6cf);
+            animation: moodSwing 4s ease-in-out infinite;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 1.2rem;
+        }
+        
+        @keyframes moodSwing {
+            0%, 100% { width: 60%; }
+            25% { width: 90%; }
+            50% { width: 30%; }
+            75% { width: 80%; }
+        }
+        
+        .mood-label {
+            position: absolute;
+            top: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            background: #fff;
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: 2px solid #ff6b6b;
+        }
+        
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 50px;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+            transform: rotate(-1deg);
+        }
+        
+        .btn:hover {
+            transform: rotate(1deg) scale(1.1);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: #fff;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            border: 4px solid #fff;
+        }
+        
+        .btn-secondary {
+            background: #fff;
+            color: #ff6b6b;
+            border: 4px solid #ff6b6b;
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.2);
+        }
+        
+        .btn-secondary:hover {
+            background: #ff6b6b;
+            color: #fff;
+        }
+        
+        /* Stats Section */
+        .stats {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(20px);
+            position: relative;
+        }
+        
+        .stats::before {
+            content: '📊 💎 🚀 📈 💰 🎯';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            font-size: 3rem;
+            opacity: 0.1;
+            animation: statsFloat 30s linear infinite;
+            pointer-events: none;
+        }
+        
+        @keyframes statsFloat {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .stat-card {
+            background: #fff;
+            padding: 40px 30px;
+            border-radius: 25px;
+            border: 4px solid #ff6b6b;
+            text-align: center;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+            transform: rotate(1deg);
+        }
+        
+        .stat-card:nth-child(even) {
+            transform: rotate(-1deg);
+        }
+        
+        .stat-card:hover {
+            transform: rotate(0deg) scale(1.1);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.3);
+        }
+        
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 10px;
+            color: #ff6b6b;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px #ff8e53;
+        }
+        
+        .stat-label {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .stat-emoji {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            font-size: 2rem;
+            background: #fff;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 3px solid #ff6b6b;
+        }
+        
+        /* Features Section */
+        .features {
+            padding: 100px 0;
+            position: relative;
+        }
+        
+        .section-title {
+            text-align: center;
+            font-size: 3.5rem;
+            font-weight: 900;
+            margin-bottom: 60px;
+            color: #fff;
+            text-shadow: 
+                3px 3px 0px #ff6b6b,
+                6px 6px 0px #ff8e53;
+            transform: rotate(-1deg);
+        }
+        
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+        
+        .feature-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: 40px;
+            border: 4px solid #ff6b6b;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.2);
+            transform: rotate(1deg);
+        }
+        
+        .feature-card:nth-child(even) {
+            transform: rotate(-1deg);
+        }
+        
+        .feature-card:hover {
+            transform: rotate(0deg) scale(1.05);
+            box-shadow: 0 20px 50px rgba(255, 107, 107, 0.3);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            display: block;
+            text-align: center;
+        }
+        
+        .feature-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #ff6b6b;
+            text-align: center;
+        }
+        
+        .feature-card p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #2c3e50;
+            text-align: center;
+        }
+        
+        .feature-badge {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+            color: #fff;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 3px solid #fff;
+        }
+        
+        /* Community Section */
+        .community {
+            padding: 100px 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7));
+            backdrop-filter: blur(20px);
+        }
+        
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 60px;
+        }
+        
+        .community-card {
+            background: #fff;
+            border-radius: 25px;
+            padding: 30px;
+            border: 4px solid #ff6b6b;
+            text-align: center;
+            transition: all 0.3s ease;
+            transform: rotate(-1deg);
+        }
+        
+        .community-card:nth-child(even) {
+            transform: rotate(1deg);
+        }
+        
+        .community-card:hover {
+            transform: rotate(0deg) scale(1.1);
+        }
+        
+        .community-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: #ff6b6b;
+            margin-bottom: 10px;
+        }
+        
+        .community-label {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        /* Footer */
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #34495e);
+            padding: 60px 0 40px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .footer-fun {
+            font-size: 1.5rem;
+            color: #ff6b6b;
+            margin-bottom: 30px;
+            font-weight: 700;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: #ff6b6b;
+            color: #fff;
+            font-size: 1.8rem;
+            text-decoration: none;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            border: 4px solid #fff;
+            transform: rotate(-5deg);
+        }
+        
+        .social-links a:nth-child(even) {
+            transform: rotate(5deg);
+        }
+        
+        .social-links a:hover {
+            transform: rotate(0deg) scale(1.2);
+            background: #ff8e53;
+        }
+        
+        .footer-text {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            color: #fff;
+        }
+        
+        .contract-address {
+            font-size: 1rem;
+            color: #ff6b6b;
+            font-family: 'Courier New', monospace;
+            background: #fff;
+            padding: 15px 25px;
+            border-radius: 25px;
+            display: inline-block;
+            margin-top: 20px;
+            border: 3px solid #ff6b6b;
+            font-weight: 600;
+        }
+        
+        /* Mobile Responsive */
+        @media (max-width: 768px) {
+            .hero h1 { 
+                font-size: 3rem; 
+            }
+            .tantrum-gif { 
+                width: 250px; 
+                height: 250px; 
+            }
+            .nav-links { 
+                display: none; 
+            }
+            .cta-buttons { 
+                flex-direction: column; 
+                align-items: center; 
+            }
+            .mood-meter { 
+                width: 300px; 
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .gif-speech-bubble {
+                position: static;
+                margin: 20px auto;
+                transform: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating emojis -->
+    <div class="floating-emoji" style="left: 10%; animation-delay: 0s;">😤</div>
+    <div class="floating-emoji" style="left: 20%; animation-delay: 3s;">📈</div>
+    <div class="floating-emoji" style="left: 30%; animation-delay: 6s;">💎</div>
+    <div class="floating-emoji" style="left: 40%; animation-delay: 9s;">🚀</div>
+    <div class="floating-emoji" style="left: 50%; animation-delay: 12s;">😡</div>
+    <div class="floating-emoji" style="left: 60%; animation-delay: 15s;">💰</div>
+    <div class="floating-emoji" style="left: 70%; animation-delay: 18s;">🔥</div>
+    <div class="floating-emoji" style="left: 80%; animation-delay: 21s;">📊</div>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">$TANTRUM</div>
+                <ul class="nav-links">
+                    <li><a href="#features">Why Us?</a></li>
+                    <li><a href="#tokenomics">Numbers</a></li>
+                    <li><a href="#community">Join Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="gif-container">
+                    <img src="https://raw.githubusercontent.com/WorstGen/Tantrum/refs/heads/main/tantrum.gif" 
+                         alt="Tantrum Token Mascot" class="tantrum-gif">
+                    <div class="gif-speech-bubble">Had enough yet?</div>
+                </div>
+                <div class="hero-text">
+                    <h1>TANTRUM</h1>
+                    <p class="hero-subtitle">When Markets Make You Mad! 😤</p>
+                    <p class="hero-tagline">"Sometimes you just gotta let it out... profitably!"</p>
+                    <p class="hero-description">
+                        Fed up with rug pulls? Tired of whale manipulation? Ready to throw a tantrum? 
+                        Perfect! Channel that energy into $TANTRUM - the token for everyone who's had it up to HERE with crypto nonsense! 🤬➡️💰
+                    </p>
+                    
+                    <div class="mood-meter">
+                        <div class="mood-label">Current Market Mood 📊</div>
+                        <div class="mood-fill">😤</div>
+                    </div>
+                    
+                    <div class="cta-buttons">
+                        <a href="#" class="btn btn-primary">Get $TANTRUM Now! 🚀</a>
+                        <a href="#" class="btn btn-secondary">Check the Drama 📈</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="stats" id="tokenomics">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-emoji">🎯</div>
+                        <div class="stat-number">1B</div>
+                        <div class="stat-label">Total Tantrum Tokens</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">🚫</div>
+                        <div class="stat-number">0%</div>
+                        <div class="stat-label">Tax (We're Not Greedy!)</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">🤝</div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Community Powered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-emoji">😤</div>
+                        <div class="stat-number">MAX</div>
+                        <div class="stat-label">Rage Capacity</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features" id="features">
+            <div class="container">
+                <h2 class="section-title">Why Choose Tantrum? 🤔</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-badge">NO BS!</div>
+                        <div class="feature-icon">🎭</div>
+                        <h3>Honest AF</h3>
+                        <p>No fancy whitepapers full of lies. No "revolutionary technology" that doesn't exist. Just a fun token for when you're mad at the market and want to do something about it!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-badge">SPEEDY!</div>
+                        <div class="feature-icon">⚡</div>
+                        <h3>Lightning Fast</h3>
+                        <p>Built on Solana because when you're having a tantrum, waiting 10 minutes for a transaction is just MORE annoying. Get your rage-buy done in seconds!</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-badge">FAIR!</div>
+                        <div class="feature-icon">⚖️</div>
+                        <h3>Actually Fair Launch</h3>
+                        <p>No team tokens, no insider wallets, no "strategic partnerships" with your cousin's hedge fund. Just pure, unfiltered community chaos as it should be!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="community" id="community">
+            <div class="container">
+                <h2 class="section-title">Join the Tantrum Army! 🫡</h2>
+                <div class="community-grid">
+                    <div class="community-card">
+                        <div class="community-number">😤 10K+</div>
+                        <div class="community-label">Angry Holders</div>
+                    </div>
+                    <div class="community-card">
+                        <div class="community-number">🔥 50K+</div>
+                        <div class="community-label">Daily Rants</div>
+                    </div>
+                    <div class="community-card">
+                        <div class="community-number">💎 ∞</div>
+                        <div class="community-label">Diamond Tantrums</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-fun">Ready to throw your tantrum? Let's do this! 🎉</div>
+            <div class="social-links">
+                <a href="#" title="Twitter - Rant with us!">🐦</a>
+                <a href="#" title="Telegram - Real-time tantrums">💬</a>
+                <a href="#" title="Discord - Organized chaos">🎮</a>
+                <a href="#" title="Reddit - More ranting">🔥</a>
+            </div>
+            <p class="footer-text">© 2024 $TANTRUM - Turning Frustration into Fun (and maybe profit?) 🤷‍♀️</p>
+            <div class="contract-address">
+                <strong>CONTRACT:</strong> Coming Soon to Solana! (We're almost done having our tantrum about deployment) 😅
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tantrumGif = document.querySelector('.tantrum-gif');
+            const speechBubble = document.querySelector('.gif-speech-bubble');
+            
+            const funMessages = [
+                "Had enough yet?",
+                "Time to rage! 😤",
+                "Market got you mad?",
+                "Let's fix this! 💪",
+                "Tantrum time! 🎭",
+                "Ready to moon? 🚀"
+            ];
+            
+            // Fun GIF interactions
+            tantrumGif.addEventListener('click', function() {
+                // Change speech bubble message
+                speechBubble.textContent = funMessages[Math.floor(Math.random() * funMessages.length)];
+                
+                // Shake effect
+                this.style.animation = 'none';
+                setTimeout(() => {
+                    this.style.animation = '';
+                    this.style.transform = 'scale(1.1) rotate(10deg)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 300);
+                }, 10);
+            });
+
+            // Fun button interactions
+            document.querySelectorAll('.btn').forEach(btn => {
+                btn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Create fun popup
+                    const popup = document.createElement('div');
+                    popup.innerHTML = '🎉 TANTRUM ACTIVATED! 🎉';
+                    popup.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: linear-gradient(135deg, #ff6b6b, #ff8e53);
+                        color: white;
+                        padding: 20px 40px;
+                        border-radius: 25px;
+                        border: 4px solid #fff;
+                        font-size: 1.5rem;
+                        font-weight: 700;
+                        z-index: 10000;
+                        animation: popupBounce 2s ease-out forwards;
+                        text-align: center;
+                        box-shadow: 0 10px 30px rgba(255, 107, 107, 0.5);
+                    `;
+                    
+                    document.body.appendChild(popup);
+                    setTimeout(() => popup.remove(), 2000);
+                });
+            });
+
+            // Card hover effects with fun sounds (visual feedback)
+            document.querySelectorAll('.stat-card, .feature-card, .community-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform.includes('rotate(-1deg)') ? 
+                        'rotate(1deg) scale(1.1)' : 'rotate(-1deg) scale(1.1)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = this.classList.contains('stat-card') && 
+                        Array.from(this.parentElement.children).indexOf(this) % 2 === 1 ? 
+                        'rotate(-1deg)' : 'rotate(1deg)';
+                });
+            });
+
+            // Mood meter interaction
+            const moodMeter = document.querySelector('.mood-fill');
+            const moodEmojis = ['😭', '😤', '😡', '🚀', '💎', '🎉'];
+            let currentMoodIndex = 1;
+            
+            moodMeter.addEventListener('click', function() {
+                currentMoodIndex = (currentMoodIndex + 1) % moodEmojis.length;
+                this.innerHTML = moodEmojis[currentMoodIndex];
+                
+                // Change width based on mood
+                const widths = ['20%', '60%', '80%', '95%', '100%', '110%'];
+                this.style.width = widths[currentMoodIndex];
+            });
+
+            // Random floating emojis
+            function createRandomEmoji() {
+                const emojis = ['😤', '💎', '🚀', '💰', '🔥', '📊', '🎯', '⚡'];
+                const emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                
+                const element = document.createElement('div');
+                element.textContent = emoji;
+                element.className = 'floating-emoji';
+                element.style.left = Math.random() * 100 + '%';
+                element.style.animationDelay = '0s';
+                element.style.animationDuration = (15 + Math.random() * 10) + 's';
+                
+                document.body.appendChild(element);
+                
+                setTimeout(() => {
+                    element.remove();
+                }, 25000);
+            }
+
+            // Create new floating emoji every 3 seconds
+            setInterval(createRandomEmoji, 3000);
+
+            // Easter egg: Konami code for extra tantrum
+            let konamiCode = [];
+            const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'KeyB', 'KeyA'];
+            
+            document.addEventListener('keydown', function(e) {
+                konamiCode.push(e.code);
+                if (konamiCode.length > konamiSequence.length) {
+                    konamiCode.shift();
+                }
+                
+                if (JSON.stringify(konamiCode) === JSON.stringify(konamiSequence)) {
+                    // MEGA TANTRUM MODE
+                    document.body.style.animation = 'gradientShift 0.5s ease infinite';
+                    
+                    const megaTantrum = document.createElement('div');
+                    megaTantrum.innerHTML = '🌟 MEGA TANTRUM UNLOCKED! 🌟<br>You found the secret! 🎊';
+                    megaTantrum.style.cssText = `
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        background: linear-gradient(135deg, #ff6b6b, #a8e6cf, #ff8e53);
+                        color: white;
+                        padding: 30px;
+                        border-radius: 25px;
+                        border: 5px solid #fff;
+                        font-size: 2rem;
+                        font-weight: 900;
+                        z-index: 10000;
+                        text-align: center;
+                        box-shadow: 0 0 50px rgba(255, 107, 107, 0.8);
+                        animation: megaBounce 3s ease-out forwards;
+                    `;
+                    
+                    document.body.appendChild(megaTantrum);
+                    setTimeout(() => {
+                        megaTantrum.remove();
+                        document.body.style.animation = 'gradientShift 15s ease infinite';
+                    }, 3000);
+                    
+                    konamiCode = [];
+                }
+            });
+
+            // Smooth scroll for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({
+                            behavior: 'smooth',
+                            block: 'start'
+                        });
+                    }
+                });
+            });
+
+            // Logo click surprise
+            document.querySelector('.logo').addEventListener('click', function() {
+                this.textContent = this.textContent === '$TANTRUM' ? '💎TANTRUM💎' : '$TANTRUM';
+                setTimeout(() => {
+                    this.textContent = '$TANTRUM';
+                }, 2000);
+            });
+        });
+
+        // Add popup animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes popupBounce {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0) rotate(-180deg); 
+                    opacity: 0; 
+                }
+                50% { 
+                    transform: translate(-50%, -50%) scale(1.2) rotate(5deg); 
+                    opacity: 1; 
+                }
+                100% { 
+                    transform: translate(-50%, -50%) scale(1) rotate(0deg); 
+                    opacity: 0; 
+                }
+            }
+            
+            @keyframes megaBounce {
+                0% { 
+                    transform: translate(-50%, -50%) scale(0); 
+                    opacity: 0; 
+                }
+                20% { 
+                    transform: translate(-50%, -50%) scale(1.3); 
+                    opacity: 1; 
+                }
+                40% { 
+                    transform: translate(-50%, -50%) scale(0.9); 
+                }
+                60% { 
+                    transform: translate(-50%, -50%) scale(1.1); 
+                }
+                80% { 
+                    transform: translate(-50%, -50%) scale(1); 
+                }
+                100% { 
+                    transform: translate(-50%, -50%) scale(0.8); 
+                    opacity: 0; 
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
